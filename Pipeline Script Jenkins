@@ -18,21 +18,18 @@ def mavenHome = tool name: 'maven-3.9.2'
     }
     stage('sonarqubereport')
     {
-    sh "${mavenHome}/bin/mvn sonar:sonar"
+    sh "${mavenHome}/bin/mvn clean sonar:sonar"
     }
  
     stage('uploadInToArtifactrepo')
     {
     sh "${mavenHome}/bin/mvn clean deploy"
     }
-/*    
     stage('DeployInToTomcatServer')
     {
     sshagent(['28e1d691-443b-4f41-878f-93567c6bc588']) {
     // some block
-    }
     sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.47.168:/opt/apache-tomcat-9.0.79/webapps/"
-  
+    }
    }
-*/   
 }    
